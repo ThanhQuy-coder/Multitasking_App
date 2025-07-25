@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multitasking App</title>
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- Google Font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Header -->
+      <header>
+        <div class="containerHeader">
+          <p class="Logo">Multitasking App</p>
+
+          <button class="hamburger" id="hamburgerBtn">☰</button>
+
+          <nav class="containerNavigation" id="navMenu">
+            <ul>
+              <li><a href="#">HOME</a></li>
+              <li><a href="#">MÁY TÍNH</a></li>
+              <li><a href="#">QUẢN LÍ CÔNG VIỆC</a></li>
+              <li><button id="toggleDarkMode">🌓 Dark Mode</button></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Main -->
+      <main>
+        <div class="mainContent">
+          <img
+            src="./imgs/cat_beautiful.jpg"
+            alt="Ảnh đại diện"
+            class="profileImage"
+          />
+          <div class="introText">
+            <h2>Xin chào, mình là Quý</h2>
+            <p>
+              Đây là ứng dụng đa nhiệm do mình tự phát triển với mục tiêu giúp
+              bạn quản lý công việc, tính toán nhanh và tăng hiệu suất làm việc
+              hằng ngày. Mong rằng bạn sẽ thấy hữu ích!
+            </p>
+          </div>
+        </div>
+        <!-- phân nội dung thẻ card đến chức năng -->
+        <div class="listCards">
+          <div class="card">
+            <div class="image_card">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/1011/1011863.png"
+                alt="img-card"
+              />
+            </div>
+            <div class="contentCard">
+              <h3 class="titleCard">Máy tính tính toán</h3>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="image_card">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/7692/7692809.png"
+                alt="img-card"
+              />
+            </div>
+            <div class="contentCard">
+              <h3 class="titleCard">Quản lí công việc</h3>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer>
+        <p>&copy; 2025 Huỳnh Thanh Quý. All rights reserved.</p>
+      </footer>
+    </div>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
