@@ -49,15 +49,17 @@ header {
   background-color: var(--header-bg);
   color: white;
   padding: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .containerHeader {
   max-width: 1200px;
-  margin: auto;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1rem;
 }
 
 .Logo {
@@ -197,8 +199,12 @@ footer {
 /* mobile */
 /* Responsive styles */
 @media (max-width: 768px) {
-  .containerHeader {
+  header {
+    display: flex;
     flex-direction: column;
+    padding: 10px;
+  }
+  .containerHeader {
     align-items: flex-start;
   }
 
