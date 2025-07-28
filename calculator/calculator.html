@@ -17,47 +17,49 @@
       <!-- Phần nội dung chính -->
       <main>
         <div class="block">
-          <div class="display"><span id="display">123</span></div>
+          <div class="display"><span id="display">0</span></div>
           <div class="level_1">
             <ul>
-              <li>AC</li>
-              <li>+/-</li>
-              <li>%</li>
-              <li>/</li>
+              <li data-action="ac">AC</li>
+              <li data-action="+/-">+/-</li>
+              <li data-operator="%">%</li>
+              <li data-operator="/">/</li>
             </ul>
           </div>
           <div class="level_2">
             <ul>
-              <li>7</li>
-              <li>8</li>
-              <li>9</li>
-              <li>*</li>
+              <li data-number="7">7</li>
+              <li data-number="8">8</li>
+              <li data-number="9">9</li>
+              <li data-operator="*">*</li>
             </ul>
           </div>
           <div class="level_3">
             <ul>
-              <li>4</li>
-              <li>5</li>
-              <li>6</li>
-              <li>-</li>
+              <li data-number="4">4</li>
+              <li data-number="5">5</li>
+              <li data-number="6">6</li>
+              <li data-operator="-">-</li>
             </ul>
           </div>
           <div class="level_4">
             <ul>
-              <li>1</li>
-              <li>2</li>
-              <li>3</li>
-              <li>+</li>
+              <li data-number="1">1</li>
+              <li data-number="2">2</li>
+              <li data-number="3">3</li>
+              <li data-operator="+">+</li>
             </ul>
           </div>
           <div class="level_5">
             <ul>
-              <li>0</li>
-              <li>.</li>
-              <li>=</li>
+              <li data-number="0">0</li>
+              <li data-action=".">.</li>
+              <li data-action="del">del</li>
+              <li data-action="=">=</li>
             </ul>
           </div>
         </div>
+        <div id="notification"></div>
       </main>
 
       <!-- Footer -->
