@@ -11,13 +11,18 @@
     <div class="wrapper">
       <header>
         <div class="Logo"><a href="../index.html">Multitasking App</a></div>
-        <div class="nav_back"><a href="../index.html">Trở về trang chủ</a></div>
+        <div class="container-nav">
+          <div class="nav_back">
+            <a href="../index.html">Trở về trang chủ</a>
+          </div>
+          <button id="toggleDarkMode">🌓 Dark Mode</button>
+        </div>
       </header>
 
       <!-- Phần nội dung chính -->
       <main>
         <div class="block">
-          <div class="display"><span id="display">0</span></div>
+          <div class="display" id="displayId">0</div>
           <div class="level_1">
             <ul>
               <li data-action="ac">AC</li>
@@ -59,6 +64,13 @@
             </ul>
           </div>
         </div>
+        <div class="history-cal">
+          <h2>Lịch sử tính toán</h2>
+          <div class="containerListHistory">
+            <div id="history-display" class="history-box"></div>
+          </div>
+          <div id="del-history">Xóa danh sách</div>
+        </div>
         <div id="notification"></div>
       </main>
 
@@ -68,6 +80,6 @@
       </footer>
     </div>
 
-    <script src="./calculator.js"></script>
+    <script type="module" src="./calculator.js"></script>
   </body>
 </html>

@@ -1,14 +1,8 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // Dark mode toggle
-  const toggleDarkModeBtn = document.getElementById("toggleDarkMode");
-  const body = document.body;
+import { themeDarkMode } from "./js/theme.js";
 
-  toggleDarkModeBtn.addEventListener("click", () => {
-    body.classList.toggle("dark");
-    toggleDarkModeBtn.textContent = body.classList.contains("dark")
-      ? "☀️ Light Mode"
-      : "🌓 Dark Mode";
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  const theme = document.querySelector("#toggleDarkMode");
+  theme.addEventListener("click", themeDarkMode);
 
   // Hamburger menu toggle
   const hamburgerBtn = document.getElementById("hamburgerBtn");

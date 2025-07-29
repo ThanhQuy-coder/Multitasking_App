@@ -1,11 +1,69 @@
+import { themeDarkMode } from "../js/theme.js";
+
 document.addEventListener("DOMContentLoaded", () => {
+  // theme
+  const theme = document.querySelector("#toggleDarkMode");
+  theme.addEventListener("click", () => {
+    themeDarkMode();
+  });
+
+  // history & p
+  let p = document.createElement("p");
+  let history = JSON.parse(localStorage.getItem("calcHistory") || "[]");
+  let history_display = document.querySelector("#history-display");
+
+  // Gọi lịch sử khi tải trang xong
+  function displayHistory() {
+    console.log(typeof history);
+    if (Object.keys(history).length === 0) {
+      p.className = "btn-history-cal";
+      p.textContent = "Lịch sử trống";
+      history_display.prepend(p);
+    }
+
+    for (let obj of history) {
+      p.className = "btn-history-cal";
+      p.textContent = obj;
+      history_display.append(p);
+    }
+  }
+
+  displayHistory();
+
+  // Xóa lịch sử
+  document.querySelector("#del-history").addEventListener("click", () => {
+    localStorage.clear();
+    console.log("đã xóa toàn bộ localStorage");
+    history = [];
+    history_display.innerHTML = '<p class="btn-history-cal">Lịch sử trống</p>';
+  });
+
+  // Phân tích biểu thức
+  function parseExpression(expr) {
+    console.log(expr);
+    const parts = expr.replace(/\s/g, "").split("=");
+    console.log(parts);
+    currentInput = +parts[1];
+    previousValue = null;
+    operator = null;
+    displayElement.textContent = `${parts[1]}`;
+  }
+
+  // Chọn phần lịch sử tương ứng
+  const items = document.querySelectorAll(".btn-history-cal");
+  items.forEach((item) => {
+    item.addEventListener("click", () => {
+      parseExpression(item.textContent);
+    });
+  });
+
   // State & Logic
   let currentInput = "0";
   let previousValue = null;
   let operator = null;
 
   //   Hiển thị
-  const displayElement = document.querySelector("#display");
+  const displayElement = document.querySelector("#displayId");
   const notification = document.querySelector("#notification");
 
   function updateDisplay(value) {
@@ -72,6 +130,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Hàm lưu lịch sử tính toán
+  function addHistory(expr, result) {
+    // Lưu vào Local storage
+    history.unshift(`${expr} = ${result}`);
+    localStorage.setItem("calcHistory", JSON.stringify(history));
+    history_display.textContent = "";
+    displayHistory();
+  }
+
   //   Hàm tính toán
   function calculator() {
     currentInput = +currentInput;
@@ -105,6 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
     }
     if (isFinite(result)) {
+      addHistory(`${previousValue} ${operator} ${currentInput}`, result);
       result = Number(result.toFixed(2));
       currentInput = result;
       updateDisplay(result);
@@ -141,8 +209,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /**
- * 1. Lịch sử tính toán
- * 2. Theme UI
+ * 1. Lịch sử tính toán (Y)
+ * 2. Theme UI Dark mode
  * 3. Test độ dài của display
  * 4. Nhập từ bàn phím
  * 5. Tương tác được với bàn phím
