@@ -156,7 +156,7 @@ li {
   cursor: pointer;
 }
 
-li:hover {
+li:active {
   opacity: 0.5;
 }
 

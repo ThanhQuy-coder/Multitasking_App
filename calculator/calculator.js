@@ -67,7 +67,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const notification = document.querySelector("#notification");
 
   function updateDisplay(value) {
-    displayElement.textContent = value;
+    if (value.toString().length > 20) {
+      displayElement.textContent = Number(value).toExponential(4);
+    } else {
+      displayElement.textContent = value;
+    }
   }
 
   function displayNotification(value) {
@@ -143,6 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function calculator() {
     currentInput = +currentInput;
     previousValue = +previousValue;
+    let result = 0;
     console.log(currentInput);
     switch (operator) {
       case "+":
@@ -179,6 +184,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Nhap du lieu tu ban phim
+  document.addEventListener("keydown", (e) => {
+    const key = e.key;
+
+    if (!isNaN(key)) handleNumber(key);
+    else if (["+", "-", "*", "/", "%"].includes(key)) handleOperator(key);
+    else if (key === "Enter" || key === "=") handleAction("=");
+    else if (key === "Backspace") handleAction("del");
+    else if (key === ".") handleAction(".");
+    else if (key.toLowerCase() === "c") handleAction("ac");
+
+    // console.log(`currrentInput: ${currentInput}, type: ${typeof currentInput}`);
+    // console.log(`previousValue: ${previousValue}`);
+    // console.log(`operator: ${operator}`);
+  });
+
   //Phần lấy thông tin
   const block = document.querySelector(".block");
   block.addEventListener("click", (e) => {
@@ -202,17 +223,15 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Không tìm thấy li");
     }
 
-    console.log(`currrentInput: ${currentInput}, type: ${typeof currentInput}`);
-    console.log(`previousValue: ${previousValue}`);
-    console.log(`operator: ${operator}`);
+    // console.log(`currrentInput: ${currentInput}, type: ${typeof currentInput}`);
+    // console.log(`previousValue: ${previousValue}`);
+    // console.log(`operator: ${operator}`);
   });
 });
 
 /**
  * 1. Lịch sử tính toán (Y)
- * 2. Theme UI Dark mode
- * 3. Test độ dài của display
- * 4. Nhập từ bàn phím
- * 5. Tương tác được với bàn phím
- * 6. Sáng tạo
+ * 2. Theme UI Dark mode (Y)
+ * 3. Test độ dài của display (Y)
+ * 4. Nhập từ bàn phím (Y)
  */
