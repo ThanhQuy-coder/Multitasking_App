@@ -3,27 +3,71 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>To do List</title>
+    <title>Multitasking App</title>
     <link rel="stylesheet" href="./to_do_list.css" />
+
+    <!-- Google Font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <header>
-      <div class="containerHeader">
-        <p class="Logo">Multitasking App</p>
-      </div>
-      <nav class="containerNavigation" id="navMenu">
-        <ul>
-          <li><a href="#">HOME</a></li>
-          <li><a href="#">MÁY TÍNH</a></li>
-          <li><a href="#">QUẢN LÍ CÔNG VIỆC</a></li>
-          <li><button id="toggleDarkMode">🌓 Dark Mode</button></li>
-        </ul>
-      </nav>
-    </header>
-    <main></main>
-    <footer>
-      <p>&copy; 2025 Huỳnh Thanh Quý. All rights reserved.</p>
-    </footer>
+    <div class="wrapper">
+      <!-- Header -->
+      <header>
+        <div class="containerHeader">
+          <p class="Logo">Multitasking App</p>
+
+          <button class="hamburger" id="hamburgerBtn">☰</button>
+        </div>
+        <nav class="containerNavigation" id="navMenu">
+          <ul>
+            <li><a href="../index.html">HOME</a></li>
+            <li><a href="./calculator/calculator.html">MÁY TÍNH</a></li>
+            <li><a href="./to_do_list.html">QUẢN LÍ CÔNG VIỆC</a></li>
+            <li><button id="toggleDarkMode">🌓 Dark Mode</button></li>
+          </ul>
+        </nav>
+      </header>
+
+      <!-- Main -->
+      <main>
+        <div id="feature">
+          <!-- Chức năng tìm kiếm -->
+          <form class="form-feature">
+            <label for="search_todos">TÌM KIẾM</label>
+            <input
+              type="text"
+              name="search_todos"
+              id="search_todos"
+              placeholder="Tìm việc bạn cần làm"
+            />
+          </form>
+
+          <!-- Chức năng thêm công việc -->
+          <form class="form-feature form-add-todos">
+            <label for="add_new_todos">THÊM VIỆC CẦN LÀM</label>
+            <input
+              id="add_new_todos"
+              type="text"
+              placeholder="Thêm công việc cần làm"
+            />
+            <button>Gửi</button>
+          </form>
+        </div>
+
+        <!-- Nơi hiển thị danh sách công việc -->
+        <div id="list-todos"></div>
+      </main>
+
+      <!-- Footer -->
+      <footer>
+        <p>&copy; 2025 Huỳnh Thanh Quý. All rights reserved.</p>
+      </footer>
+    </div>
 
     <script type="module" src="./to_do_list.js"></script>
   </body>

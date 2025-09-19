@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Gọi lịch sử khi tải trang xong
   function displayHistory() {
     console.log(typeof history);
-    if (Object.keys(history).length === 0) {
+    if (history.length === 0) {
       p.className = "btn-history-cal";
       p.textContent = "Lịch sử trống";
       history_display.prepend(p);
