@@ -12,6 +12,15 @@ document.addEventListener("DOMContentLoaded", () => {
   let history = JSON.parse(localStorage.getItem("calcHistory") || "[]");
   let history_display = document.querySelector("#history-display");
 
+  // State & Logic
+  let currentInput = "0";
+  let previousValue = null;
+  let operator = null;
+
+  //   Hiển thị
+  const displayElement = document.querySelector("#displayId");
+  const notification = document.querySelector("#notification");
+
   // Gọi lịch sử khi tải trang xong
   function displayHistory() {
     console.log(typeof history);
@@ -22,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     for (let obj of history) {
+      let p = document.createElement("p");
       p.className = "btn-history-cal";
       p.textContent = obj;
       history_display.append(p);
@@ -51,20 +61,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Chọn phần lịch sử tương ứng
   const items = document.querySelectorAll(".btn-history-cal");
-  items.forEach((item) => {
-    item.addEventListener("click", () => {
-      parseExpression(item.textContent);
-    });
+  history_display.addEventListener("click", (e) => {
+    if (e.target.classList.contains("btn-history-cal")) {
+      parseExpression(e.target.textContent);
+    }
   });
-
-  // State & Logic
-  let currentInput = "0";
-  let previousValue = null;
-  let operator = null;
-
-  //   Hiển thị
-  const displayElement = document.querySelector("#displayId");
-  const notification = document.querySelector("#notification");
 
   function updateDisplay(value) {
     if (value.toString().length > 20) {
@@ -184,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Nhap du lieu tu ban phim
+  // Nhập dữ liệu từ bàn phím
   document.addEventListener("keydown", (e) => {
     const key = e.key;
 
@@ -228,10 +229,3 @@ document.addEventListener("DOMContentLoaded", () => {
     // console.log(`operator: ${operator}`);
   });
 });
-
-/**
- * 1. Lịch sử tính toán (Y)
- * 2. Theme UI Dark mode (Y)
- * 3. Test độ dài của display (Y)
- * 4. Nhập từ bàn phím (Y)
- */
