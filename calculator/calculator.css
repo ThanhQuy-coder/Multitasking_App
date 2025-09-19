@@ -59,6 +59,7 @@ header {
 .container-nav {
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 10px;
 }
 
@@ -78,12 +79,17 @@ a {
 }
 
 .nav_back {
-  font-size: 1.3rem;
   cursor: pointer;
+  border: 2px solid white;
+  border-radius: 8px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
 }
 
 .nav_back:hover {
   color: #66e24a;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 #toggleDarkMode {
@@ -301,6 +307,7 @@ footer {
     flex-direction: column;
     gap: 0;
     padding: 10px;
+    font-weight: 400;
   }
 
   .history-cal {
@@ -349,15 +356,10 @@ footer {
   .level_5 ul {
     display: flex;
     flex-direction: row;
-    gap: 5px;
   }
 
   .level_5 ul li {
     min-width: 20%;
     color: #000;
-  }
-
-  .level_5 ul li:first-child {
-    flex: 1;
   }
 }

@@ -14,7 +14,7 @@ export function themeDarkMode() {
 
 // Áp dụng theme khi tải trang
 document.addEventListener("DOMContentLoaded", () => {
-  const savedTheme = localStorage.getItem("theme") || "light"; // Mặc định là light
+  const savedTheme = localStorage.getItem("theme") || "light";
   const body = document.body;
   body.classList.toggle("dark", savedTheme === "dark");
   const toggleDarkModeBtn = document.getElementById("toggleDarkMode");
