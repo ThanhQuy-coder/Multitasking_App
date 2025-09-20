@@ -20,7 +20,7 @@ body.dark {
   --text-color: #504d4d;
   --text-color2: #fff;
   --header-bg: #1f1f1f;
-  --card-bg: #197e4d;
+  --card-bg: #f1f1f1;
   --card-shadow: rgba(255, 255, 255, 0.05);
   --footer-bg: #1f1f1f;
 }
@@ -40,10 +40,8 @@ body {
   line-height: 1.6;
 }
 
-.wrapper {
+main {
   flex: 1;
-  display: flex;
-  flex-direction: column;
 }
 
 /* Header */
@@ -116,8 +114,13 @@ main {
   width: 80%;
   margin: 0 auto;
   padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   flex: 1;
 }
+
+/* Các phần form thực hiện chức năng */
 
 #feature {
   display: flex;
@@ -131,6 +134,10 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 5px;
+}
+
+.form-feature label {
+  font-weight: 500;
 }
 
 .form-add-todos {
@@ -155,6 +162,7 @@ main {
   margin-top: 10px;
   padding: 0.4rem;
   background-color: var(--btn-bg);
+  cursor: pointer;
 }
 
 .form-feature button:hover {
@@ -167,38 +175,38 @@ main {
   border-radius: 10px;
 }
 
-/* Cards */
-.listCards {
+/* Phần hiển thị danh sách công việc */
+#list-todos {
   display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 2rem 1rem;
+  justify-content: space-around;
 }
 
+/* Giúp các thẻ không đè lên footer */
+#cards-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 3 cột bằng nhau */
+  gap: 16px;
+}
+
+/* Cards */
 .card {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
   background-color: var(--card-bg);
   box-shadow: 0 4px 12px var(--card-shadow);
   border-radius: 12px;
+  border: 1px solid;
   width: 220px;
+  min-height: 50%;
   text-align: center;
   transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
+  overflow-wrap: break-word;
 }
 
 .card:hover {
   transform: translateY(-8px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
-
-.image_card {
-  padding: 1rem;
-}
-
-.image_card img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
 }
 
 .contentCard {
@@ -209,6 +217,88 @@ main {
   font-size: 1.1rem;
   color: #333;
   font-weight: 600;
+}
+
+.primaryContentCard {
+  text-align: left;
+}
+
+.container-cards_function {
+  position: absolute;
+  inset: 0;
+  background: rgba(110, 109, 109, 0.695); /* nền mờ */
+  opacity: 0; /* ban đầu ẩn */
+  transition: opacity 0.3s; /* hiệu ứng mượt */
+  transition: display 0.3s;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 10px;
+  padding: 5px;
+  align-items: center;
+}
+
+.card:hover .container-cards_function {
+  opacity: 1;
+}
+
+.card.editing .container-cards_function {
+  display: none;
+}
+
+.container-cards_function button {
+  width: 100%;
+  max-height: 50%;
+  padding: 5px;
+  outline: none;
+  border-radius: 50px;
+  font-size: large;
+  cursor: pointer;
+  transition: linear 0.4s;
+}
+
+.container-cards_function button:hover {
+  background-color: var(--btn-bg);
+}
+
+.inputTitle,
+.inputDesc {
+  padding: 5px;
+  margin-bottom: 5px;
+  overflow-wrap: break-word;
+  border-radius: 10px;
+  outline: none;
+}
+
+.inputTitle {
+  border: 2px solid;
+  transition: color linear 0.3s;
+}
+
+.inputTitle:focus {
+  border: 2px solid var(--btn-bg);
+}
+
+.inputDesc {
+  border: 2px solid;
+  transition: color linear 0.3s;
+}
+
+.inputDesc:focus {
+  border: 2px solid var(--btn-bg);
+}
+
+.save_adjust {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 5px;
+  width: 100%;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.save_adjust:hover {
+  background-color: var(--btn-bg);
 }
 
 /* Footer */
