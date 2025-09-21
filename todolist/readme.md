@@ -1,4 +1,6 @@
-Thông tin về chức năng quản lý công việc (To-do list), các chức năng chính bao gồm:
+# Thông tin về chức năng quản lý công việc (To-do list), các chức năng chính bao gồm:
+
+## Phần thông tin chức năng
 
 <!-- Chức năng cơ bản -->
 
@@ -17,3 +19,7 @@ Thông tin về chức năng quản lý công việc (To-do list), các chức n
 Về phần giao diện được thiết kế dựa trên giao diện trang chủ và có thêm một số cải tiến mới:
 
 - Thêm hiệu ứng khi focus input và hover button
+
+## Kiến thức cần nhớ
+1. Thêm, sửa, xóa công việc:
+- Thay vì chọn 1 hành động với 1 nút => Sai, vì khi thêm mới dữ liệu sẽ không thể thao tác. Thay vào đó hãy 'Event Delegation' (nghe sự kiện từ cha)

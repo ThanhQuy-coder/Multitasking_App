@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     content.className = "contentCard";
 
     const tittle = document.createElement("h3");
-    tittle.className = "tittleCard";
+    tittle.className = "titleCard";
     tittle.textContent = new_todos_tittle.value;
 
     const desc = document.createElement("p");
@@ -74,16 +74,69 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Thêm việc cần làm thành công");
   });
 
-  // Chức năng chỉnh sửa thẻ card
-  document.querySelectorAll(".card").forEach((card) => {
-    const container_cards_function = card.querySelector(
-      ".container-cards_function"
-    );
-    const btnEdit = card.querySelector(".adjust");
-    const titleEl = card.querySelector(".titleCard");
-    const descEl = card.querySelector(".primaryContentCard");
+  /**
+   * Đây là phần chỉnh sửa thẻ tuy nhiên không thể chỉnh sửa dữ liệu mới
+   * Cách khác phục sử dụng Event Delegation bên dưới
+   */
+  //
+  // document.querySelectorAll(".card").forEach((card) => {
+  //   const container_cards_function = card.querySelector(
+  //     ".container-cards_function"
+  //   );
+  //   const btnEdit = card.querySelector(".adjust");
+  //   const titleEl = card.querySelector(".titleCard");
+  //   const descEl = card.querySelector(".primaryContentCard");
 
-    btnEdit.addEventListener("click", () => {
+  //   btnEdit.addEventListener("click", () => {
+  //     // Tạm ẩn
+  //     container_cards_function.style.display = "none";
+
+  //     // tạo input thay thế text hiện tại
+  //     const inputTitle = document.createElement("input");
+  //     inputTitle.className = "inputTitle";
+  //     inputTitle.type = "text";
+  //     inputTitle.value = titleEl.textContent;
+
+  //     const inputDesc = document.createElement("textarea");
+  //     inputDesc.rows = 3; // số dòng hiển thị
+  //     inputDesc.style.resize = "vertical";
+  //     inputDesc.value = descEl.textContent;
+  //     inputDesc.className = "inputDesc";
+
+  //     // tạo nút lưu
+  //     const btnSave = document.createElement("button");
+  //     btnSave.className = "save_adjust";
+  //     btnSave.textContent = "Lưu";
+
+  //     // clear nội dung cũ
+  //     card.querySelector(".contentCard").innerHTML = "";
+  //     card.querySelector(".contentCard").append(inputTitle, inputDesc, btnSave);
+
+  //     // khi bấm lưu
+  //     btnSave.addEventListener("click", () => {
+  //       titleEl.textContent = inputTitle.value;
+  //       descEl.textContent = inputDesc.value;
+
+  //       // đưa lại nội dung vào card
+  //       card.querySelector(".contentCard").innerHTML = "";
+  //       card.querySelector(".contentCard").append(titleEl, descEl);
+
+  //       // Đưa trở lại
+  //       container_cards_function.style.display = "flex";
+  //     });
+  //   });
+  // });
+
+  // Sử dụng event delegation phần chỉnh sửa card
+  document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("adjust")) {
+      const card = e.target.closest(".card");
+      const container_cards_function = card.querySelector(
+        ".container-cards_function"
+      );
+      const titleEl = card.querySelector(".titleCard");
+      const descEl = card.querySelector(".primaryContentCard");
+
       // Tạm ẩn
       container_cards_function.style.display = "none";
 
@@ -120,6 +173,13 @@ document.addEventListener("DOMContentLoaded", () => {
         // Đưa trở lại
         container_cards_function.style.display = "flex";
       });
-    });
+    }
+  });
+
+  // Chức năng xóa thẻ card
+  document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("deleted")) {
+      e.target.closest(".card").remove();
+    }
   });
 });
