@@ -1,28 +1,76 @@
 import { themeDarkMode } from "../js/theme.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Truy cập form thêm todos
-  const form_add_todos = document.getElementById("add_todos_form");
-
   // Theme
   const toggleDarkMode = document.getElementById("toggleDarkMode");
   toggleDarkMode.addEventListener("click", () => {
     themeDarkMode();
   });
 
+  // Hàm hiển thị dữ liệu đã lưu trữ
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
+  render_todos(todos);
+
+  // Hàm tìm kiếm
+  search_todos();
+
+  // Hàm thêm việc làm
+  add_todos();
+
+  // Hàm chỉnh sửa card
+  editCard();
+
+  // Hàm xóa card
+  deletedCard();
+});
+
+function search_todos() {
+  // Lấy dữ liệu trong ds và dữ liệu người dùng nhập vào
+  let user_search = document.querySelector("#search_todos");
+  const list_todos = JSON.parse(localStorage.getItem("todos")) || [];
+  const back_search = document.querySelector("#back_search");
+
+  document.querySelector("#search_todos").addEventListener("input", () => {
+    // So sánh
+    let found_todos = list_todos.filter((todo) =>
+      todo.title.toLowerCase().includes(user_search.value.toLowerCase())
+    );
+
+    // Hiển thị --> so sánh tìm được
+    // console.log(found_todos);
+    render_todos(found_todos);
+    // Hiển thị nút quay lại
+    back_search.style.display = "block";
+  });
+
+  // Khi không còn focus nữa thì sẽ không hiển thị dữ liệu người dùng nhập vào nữa
+  document.querySelector("#search_todos").addEventListener("focusout", () => {
+    user_search.value = "";
+
+    back_search.addEventListener("click", () => {
+      render_todos(list_todos);
+      // Xóa nút quay lại
+      back_search.style.display = "none";
+    });
+  });
+}
+
+function add_todos() {
+  // Truy cập form thêm todos
+  const form_add_todos = document.getElementById("add_todos_form");
   // Thêm việc cần làm
   form_add_todos.addEventListener("submit", (e) => {
     e.preventDefault(); // ngăn form reload
 
-    const new_todos_tittle = document.getElementById("add_new_todos_tittle");
+    const new_todos_title = document.getElementById("add_new_todos_title");
     const new_todos_describe = document.getElementById(
       "add_new_todos_describe"
     );
 
     // Kiểm tra số lượng từ quy định cho tiêu đề
-    if (new_todos_tittle.value.length > 20) {
+    if (new_todos_title.value.length > 20) {
       alert("Quá số từ quy định");
-      new_todos_tittle.value = "";
+      new_todos_title.value = "";
       return;
     }
 
@@ -36,15 +84,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const content = document.createElement("div");
     content.className = "contentCard";
 
-    const tittle = document.createElement("h3");
-    tittle.className = "titleCard";
-    tittle.textContent = new_todos_tittle.value;
+    const title = document.createElement("h3");
+    title.className = "titleCard";
+    title.textContent = new_todos_title.value;
 
     const desc = document.createElement("p");
     desc.className = "primaryContentCard";
     desc.textContent = new_todos_describe.value;
 
-    content.appendChild(tittle);
+    content.appendChild(title);
     content.appendChild(desc);
 
     // Phần nút chức năng dưới thẻ
@@ -68,65 +116,129 @@ document.addEventListener("DOMContentLoaded", () => {
 
     card_wrapper.appendChild(card);
 
+    save_todos({
+      title: new_todos_title.value,
+      desc: new_todos_describe.value,
+    });
+
     // Xóa nội dung người dùng vừa nhập trên input
-    new_todos_tittle.value = "";
+    new_todos_title.value = "";
     new_todos_describe.value = "";
+
+    // Lưu dữ liệu vào localStoge
     console.log("Thêm việc cần làm thành công");
   });
+}
 
-  /**
-   * Đây là phần chỉnh sửa thẻ tuy nhiên không thể chỉnh sửa dữ liệu mới
-   * Cách khác phục sử dụng Event Delegation bên dưới
-   */
-  //
-  // document.querySelectorAll(".card").forEach((card) => {
-  //   const container_cards_function = card.querySelector(
-  //     ".container-cards_function"
-  //   );
-  //   const btnEdit = card.querySelector(".adjust");
-  //   const titleEl = card.querySelector(".titleCard");
-  //   const descEl = card.querySelector(".primaryContentCard");
+function render_todos(todos) {
+  const card_wrapper = document.querySelector("#cards-wrapper");
+  card_wrapper.innerHTML = "";
 
-  //   btnEdit.addEventListener("click", () => {
-  //     // Tạm ẩn
-  //     container_cards_function.style.display = "none";
+  todos.forEach((todo) => {
+    const card = document.createElement("div");
+    card.className = "card";
 
-  //     // tạo input thay thế text hiện tại
-  //     const inputTitle = document.createElement("input");
-  //     inputTitle.className = "inputTitle";
-  //     inputTitle.type = "text";
-  //     inputTitle.value = titleEl.textContent;
+    const content = document.createElement("div");
+    content.className = "contentCard";
 
-  //     const inputDesc = document.createElement("textarea");
-  //     inputDesc.rows = 3; // số dòng hiển thị
-  //     inputDesc.style.resize = "vertical";
-  //     inputDesc.value = descEl.textContent;
-  //     inputDesc.className = "inputDesc";
+    const title = document.createElement("h3");
+    title.className = "titleCard";
+    title.textContent = todo.title;
 
-  //     // tạo nút lưu
-  //     const btnSave = document.createElement("button");
-  //     btnSave.className = "save_adjust";
-  //     btnSave.textContent = "Lưu";
+    const desc = document.createElement("p");
+    desc.className = "primaryContentCard";
+    desc.textContent = todo.desc;
 
-  //     // clear nội dung cũ
-  //     card.querySelector(".contentCard").innerHTML = "";
-  //     card.querySelector(".contentCard").append(inputTitle, inputDesc, btnSave);
+    content.appendChild(title);
+    content.appendChild(desc);
 
-  //     // khi bấm lưu
-  //     btnSave.addEventListener("click", () => {
-  //       titleEl.textContent = inputTitle.value;
-  //       descEl.textContent = inputDesc.value;
+    const btnContainer = document.createElement("div");
+    btnContainer.className = "container-cards_function";
 
-  //       // đưa lại nội dung vào card
-  //       card.querySelector(".contentCard").innerHTML = "";
-  //       card.querySelector(".contentCard").append(titleEl, descEl);
+    const button_adjust = document.createElement("button");
+    button_adjust.className = "adjust";
+    button_adjust.textContent = "🖉";
 
-  //       // Đưa trở lại
-  //       container_cards_function.style.display = "flex";
-  //     });
-  //   });
-  // });
+    const button_deleted = document.createElement("button");
+    button_deleted.className = "deleted";
+    button_deleted.textContent = "🗑";
 
+    btnContainer.appendChild(button_adjust);
+    btnContainer.appendChild(button_deleted);
+
+    card.appendChild(content);
+    card.appendChild(btnContainer);
+
+    card_wrapper.appendChild(card);
+  });
+
+  console.log("Đã render dữ liệu");
+}
+
+function save_todos(todo) {
+  let todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+  todos.push(todo);
+
+  localStorage.setItem("todos", JSON.stringify(todos));
+
+  console.log("đã lưu dữ liệu");
+}
+
+/**
+ * Đây là phần chỉnh sửa thẻ tuy nhiên không thể chỉnh sửa dữ liệu mới
+ * Cách khác phục sử dụng Event Delegation bên dưới
+ */
+//
+// document.querySelectorAll(".card").forEach((card) => {
+//   const container_cards_function = card.querySelector(
+//     ".container-cards_function"
+//   );
+//   const btnEdit = card.querySelector(".adjust");
+//   const titleEl = card.querySelector(".titleCard");
+//   const descEl = card.querySelector(".primaryContentCard");
+
+//   btnEdit.addEventListener("click", () => {
+//     // Tạm ẩn
+//     container_cards_function.style.display = "none";
+
+//     // tạo input thay thế text hiện tại
+//     const inputTitle = document.createElement("input");
+//     inputTitle.className = "inputTitle";
+//     inputTitle.type = "text";
+//     inputTitle.value = titleEl.textContent;
+
+//     const inputDesc = document.createElement("textarea");
+//     inputDesc.rows = 3; // số dòng hiển thị
+//     inputDesc.style.resize = "vertical";
+//     inputDesc.value = descEl.textContent;
+//     inputDesc.className = "inputDesc";
+
+//     // tạo nút lưu
+//     const btnSave = document.createElement("button");
+//     btnSave.className = "save_adjust";
+//     btnSave.textContent = "Lưu";
+
+//     // clear nội dung cũ
+//     card.querySelector(".contentCard").innerHTML = "";
+//     card.querySelector(".contentCard").append(inputTitle, inputDesc, btnSave);
+
+//     // khi bấm lưu
+//     btnSave.addEventListener("click", () => {
+//       titleEl.textContent = inputTitle.value;
+//       descEl.textContent = inputDesc.value;
+
+//       // đưa lại nội dung vào card
+//       card.querySelector(".contentCard").innerHTML = "";
+//       card.querySelector(".contentCard").append(titleEl, descEl);
+
+//       // Đưa trở lại
+//       container_cards_function.style.display = "flex";
+//     });
+//   });
+// });
+
+function editCard() {
   // Sử dụng event delegation phần chỉnh sửa card
   document.addEventListener("click", (e) => {
     if (e.target.classList.contains("adjust")) {
@@ -175,11 +287,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   });
+}
 
-  // Chức năng xóa thẻ card
+function deletedCard() {
+  // Chức năng xóa card
   document.addEventListener("click", (e) => {
     if (e.target.classList.contains("deleted")) {
       e.target.closest(".card").remove();
     }
   });
-});
+}

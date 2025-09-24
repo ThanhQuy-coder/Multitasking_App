@@ -36,15 +36,18 @@
     <main>
       <div id="feature">
         <!-- Chức năng tìm kiếm -->
-        <form class="form-feature">
+        <div class="feature_search">
           <label for="search_todos">TÌM KIẾM</label>
-          <input
-            type="text"
-            name="search_todos"
-            id="search_todos"
-            placeholder="Tìm việc bạn cần làm"
-          />
-        </form>
+          <div class="input_wrapper">
+            <input
+              type="text"
+              name="search_todos"
+              id="search_todos"
+              placeholder="Tìm việc bạn cần làm"
+            />
+            <img src="../imgs/return.png" alt="return_search" id="back_search"/>
+          </div>
+        </div>
 
         <!-- Chức năng thêm công việc -->
         <form
@@ -52,9 +55,9 @@
           class="form-feature form-add-todos"
           type="submit"
         >
-          <label for="add_new_todos_tittle">THÊM VIỆC CẦN LÀM</label>
+          <label for="add_new_todos_title">THÊM VIỆC CẦN LÀM</label>
           <input
-            id="add_new_todos_tittle"
+            id="add_new_todos_title"
             type="text"
             placeholder="Thêm công việc cần làm"
             required
@@ -66,43 +69,7 @@
 
       <!-- Nơi hiển thị danh sách công việc -->
       <div id="list-todos">
-        <div id="cards-wrapper">
-          <div class="card">
-            <div class="contentCard">
-              <h3 class="titleCard">Chơi game</h3>
-              <p class="primaryContentCard">Thực hiện chơi game lúc 12h</p>
-            </div>
-
-            <div class="container-cards_function">
-              <button class="adjust">🖉</button>
-              <button class="deleted">🗑</button>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="contentCard">
-              <h3 class="titleCard">Chơi game</h3>
-              <p class="primaryContentCard">Thực hiện chơi game lúc 12h</p>
-            </div>
-
-            <div class="container-cards_function">
-              <button class="adjust">🖉</button>
-              <button class="deleted">🗑</button>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="contentCard">
-              <h3 class="titleCard">Chơi game</h3>
-              <p class="primaryContentCard">Thực hiện chơi game lúc 12h</p>
-            </div>
-
-            <div class="container-cards_function">
-              <button class="adjust">🖉</button>
-              <button class="deleted">🗑</button>
-            </div>
-          </div>
-        </div>
+        <div id="cards-wrapper"></div>
       </div>
     </main>
 
