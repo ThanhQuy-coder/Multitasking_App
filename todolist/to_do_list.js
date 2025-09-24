@@ -17,27 +17,25 @@ document.addEventListener("DOMContentLoaded", () => {
   // Hàm thêm việc làm
   add_todos();
 
-  // Hàm chỉnh sửa card
+  // Hàm chỉnh sửa và xóa card
   editCard();
-
-  // Hàm xóa card
-  deletedCard();
+  removeCard();
 });
 
 function search_todos() {
   // Lấy dữ liệu trong ds và dữ liệu người dùng nhập vào
   let user_search = document.querySelector("#search_todos");
-  const list_todos = JSON.parse(localStorage.getItem("todos")) || [];
   const back_search = document.querySelector("#back_search");
 
   document.querySelector("#search_todos").addEventListener("input", () => {
+    const list_todos = JSON.parse(localStorage.getItem("todos")) || [];
     // So sánh
     let found_todos = list_todos.filter((todo) =>
       todo.title.toLowerCase().includes(user_search.value.toLowerCase())
     );
 
     // Hiển thị --> so sánh tìm được
-    // console.log(found_todos);
+    console.log(found_todos);
     render_todos(found_todos);
     // Hiển thị nút quay lại
     back_search.style.display = "block";
@@ -58,6 +56,7 @@ function search_todos() {
 function add_todos() {
   // Truy cập form thêm todos
   const form_add_todos = document.getElementById("add_todos_form");
+
   // Thêm việc cần làm
   form_add_todos.addEventListener("submit", (e) => {
     e.preventDefault(); // ngăn form reload
@@ -79,6 +78,7 @@ function add_todos() {
     // Tạo thẻ
     const card = document.createElement("div");
     card.className = "card";
+    card.dataset.id = Date.now();
 
     // Phần nội dung
     const content = document.createElement("div");
@@ -117,6 +117,7 @@ function add_todos() {
     card_wrapper.appendChild(card);
 
     save_todos({
+      id: card.dataset.id,
       title: new_todos_title.value,
       desc: new_todos_describe.value,
     });
@@ -137,6 +138,7 @@ function render_todos(todos) {
   todos.forEach((todo) => {
     const card = document.createElement("div");
     card.className = "card";
+    card.dataset.id = todo.id;
 
     const content = document.createElement("div");
     content.className = "contentCard";
@@ -284,16 +286,40 @@ function editCard() {
 
         // Đưa trở lại
         container_cards_function.style.display = "flex";
+
+        // Lưu vào trong localStorage
+        const update_todos = JSON.parse(localStorage.getItem("todos")) || [];
+        const id_todo = card.dataset.id;
+        update_todos.forEach((todo) => {
+          if (todo.id === id_todo) {
+            todo.title = inputTitle.value;
+            todo.desc = inputDesc.value;
+          }
+        });
+        localStorage.setItem("todos", JSON.stringify(update_todos));
       });
     }
   });
 }
 
-function deletedCard() {
+function removeCard() {
   // Chức năng xóa card
   document.addEventListener("click", (e) => {
     if (e.target.classList.contains("deleted")) {
+      const todos = JSON.parse(localStorage.getItem("todos")) || [];
+      const card = e.target.closest(".card");
+      // Xóa hiển thị của card
       e.target.closest(".card").remove();
+
+      // Kiểm tra localStorage có dữ liệu không
+      if (!todos) {
+        return;
+      }
+
+      // Xóa dữ liệu trong localStorage
+      const id_todo_remove = card.dataset.id;
+      const list_new = todos.filter((todo) => todo.id !== id_todo_remove);
+      localStorage.setItem("todos", JSON.stringify(list_new));
     }
   });
 }
