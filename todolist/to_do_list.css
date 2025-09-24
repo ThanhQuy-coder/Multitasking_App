@@ -413,6 +413,33 @@ footer {
   #toggleDarkMode {
     border: none;
   }
+
+  #list-todos {
+    width: 100%;
+  }
+
+  .card {
+    max-width: 130px;
+    min-height: 70px;
+  }
+
+  .card.is-active .container-cards_function {
+    opacity: 1;
+  }
+
+  .container-cards_function button {
+    box-sizing: border-box;
+  }
+
+  .inputTitle,
+  .inputDesc {
+    width: 100px;
+  }
+
+  #cards-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 3 cột bằng nhau */
+  }
 }
 
 @media (max-width: 480px) {

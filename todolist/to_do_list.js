@@ -7,6 +7,14 @@ document.addEventListener("DOMContentLoaded", () => {
     themeDarkMode();
   });
 
+  // toggle card function
+  const cards = document.querySelectorAll(".card");
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      this.classList.toggle("is-active");
+    });
+  });
+
   // Hàm hiển thị dữ liệu đã lưu trữ
   const todos = JSON.parse(localStorage.getItem("todos")) || [];
   render_todos(todos);
